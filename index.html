@@ -3026,6 +3026,155 @@ function closeMenu(){
   closeMenu();
 });
 
+
+	// ======================================
+// TRIAL VERSION RESTRICTIONS
+// ======================================
+
+const TRIAL_MODE = true
+
+window.addEventListener("load", ()=>{
+
+if(!TRIAL_MODE) return
+
+// ======================================
+// PRODUCTS
+// ======================================
+
+document.getElementById("productBtn").disabled = true
+document.getElementById("productName").disabled = true
+
+// disable edit/delete buttons
+setTimeout(()=>{
+disableButtons("#productTable .btn")
+disableButtons("#ingredientTable .btn")
+disableButtons("#pricingTable .btn")
+disableButtons("#opexTable .btn")
+},500)
+
+// ======================================
+// INGREDIENTS
+// ======================================
+
+disableInputs([
+"ingredientProductSearch",
+"ingredientName",
+"ingredientType",
+"ingredientYield",
+"ingredientUOM",
+"ingredientCost",
+"addBtn",
+"cancelEditBtn"
+])
+
+// ======================================
+// PRICING
+// ======================================
+
+disableInputs([
+"pricingProductSearch",
+"pricingFoodCost",
+"pricingPaperCost",
+"pricingTax",
+"pricingDiscount",
+"pricingPctProfit",
+"pricingAbsProfit",
+"pricingTarget",
+"pricingBtn",
+"pricingCancelBtn"
+])
+
+// ======================================
+// REPORTS
+// allow open only
+// ======================================
+
+document.querySelector("#reports .btn.btn-primary").disabled = true
+document.querySelector("#reports .btn.btn-secondary").disabled = true
+
+// ======================================
+// OPEX
+// ======================================
+
+disableInputs([
+"opexCategory",
+"opexAccount",
+"opexDesc",
+"opexAssign",
+"opexAmount",
+"opexBtn",
+"opexCancelBtn"
+])
+
+// disable add account
+document.querySelector("#opex button.btn-primary").disabled = true
+
+// disable editable amount fields
+document.querySelectorAll("#opexTable input").forEach(el=>{
+el.disabled = true
+})
+
+// ======================================
+// FORECAST
+// ======================================
+
+// disable qty inputs
+document.querySelectorAll("#forecastTable input").forEach(el=>{
+el.disabled = true
+})
+
+// disable discount %
+let pnlDiscount = document.getElementById("pnl_discount_rate")
+if(pnlDiscount){
+pnlDiscount.disabled = true
+}
+
+// ======================================
+// SYSTEM TAB
+// ======================================
+
+document.querySelectorAll("#clear button").forEach(btn=>{
+btn.disabled = true
+btn.style.opacity = "0.5"
+btn.innerText += " (Trial Locked)"
+})
+
+})
+
+// ======================================
+// HELPERS
+// ======================================
+
+function disableInputs(ids){
+
+ids.forEach(id=>{
+
+let el = document.getElementById(id)
+
+if(el){
+el.disabled = true
+el.style.opacity = "0.7"
+}
+
+})
+
+}
+
+function disableButtons(selector){
+
+document.querySelectorAll(selector).forEach(btn=>{
+
+btn.disabled = true
+btn.style.opacity = "0.5"
+btn.onclick = function(e){
+e.preventDefault()
+return false
+}
+
+})
+
+}
+
 	
 </script>
 
