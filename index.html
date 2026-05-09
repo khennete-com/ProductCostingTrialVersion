@@ -6,9 +6,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"></script>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
-
 <title>Product Costing System</title>
 
 <style>
@@ -2848,72 +2845,6 @@ function filterIngredientsTable(){
 }
 
 
-// 🔥 CHECK FOR UPDATE (SERVICE WORKER)
-function checkForUpdate(){
-
-if(!('serviceWorker' in navigator)){
-return alert("Service Worker not supported")
-}
-
-let loader = document.getElementById("updateLoader")
-let msg = document.getElementById("updateMessage")
-
-// 🔥 SHOW LOADER
-loader.style.display = "block"
-msg.innerText = ""
-
-navigator.serviceWorker.getRegistration().then(reg => {
-
-if(!reg){
-loader.style.display = "none"
-msg.innerText = "No service worker found."
-return
-}
-
-// 🔥 FORCE UPDATE CHECK
-reg.update().then(()=>{
-
-// give time to detect update
-setTimeout(()=>{
-
-loader.style.display = "none"
-msg.innerText = "App is up to date."
-
-}, 1500)
-
-})
-
-})
-
-// 🔥 IF NEW VERSION ACTIVATED
-navigator.serviceWorker.addEventListener('controllerchange', () => {
-msg.innerText = "New version applied. Reloading..."
-location.reload()
-})
-}
-
-function forceUpdateApp(){
-
-if(!confirm("This will clear app cache and reload latest version. Continue?")) return
-
-// 🔥 CLEAR CACHE STORAGE
-caches.keys().then(names => {
-names.forEach(name => caches.delete(name))
-})
-
-// 🔥 FORCE SERVICE WORKER UPDATE
-if(navigator.serviceWorker){
-navigator.serviceWorker.getRegistrations().then(regs=>{
-regs.forEach(reg => reg.unregister())
-})
-}
-
-// 🔥 RELOAD
-setTimeout(()=>{
-location.reload(true)
-}, 500)
-
-}
 
 function toggleMenu(e){
 
