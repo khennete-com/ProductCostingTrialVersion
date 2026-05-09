@@ -3027,7 +3027,7 @@ function closeMenu(){
 });
 
 
-	// ======================================
+// ======================================
 // TRIAL VERSION RESTRICTIONS
 // ======================================
 
@@ -3038,59 +3038,14 @@ window.addEventListener("load", ()=>{
 if(!TRIAL_MODE) return
 
 // ======================================
-// PRODUCTS
-// ======================================
-
-document.getElementById("productBtn").disabled = true
-document.getElementById("productName").disabled = true
-
-// disable edit/delete buttons
-setTimeout(()=>{
-disableButtons("#productTable .btn")
-disableButtons("#ingredientTable .btn")
-disableButtons("#pricingTable .btn")
-disableButtons("#opexTable .btn")
-},500)
-
-// ======================================
-// INGREDIENTS
-// ======================================
-
-disableInputs([
-"ingredientProductSearch",
-"ingredientName",
-"ingredientType",
-"ingredientYield",
-"ingredientUOM",
-"ingredientCost",
-"addBtn",
-"cancelEditBtn"
-])
-
-// ======================================
-// PRICING
-// ======================================
-
-disableInputs([
-"pricingProductSearch",
-"pricingFoodCost",
-"pricingPaperCost",
-"pricingTax",
-"pricingDiscount",
-"pricingPctProfit",
-"pricingAbsProfit",
-"pricingTarget",
-"pricingBtn",
-"pricingCancelBtn"
-])
-
-// ======================================
 // REPORTS
 // allow open only
 // ======================================
 
-document.querySelector("#reports .btn.btn-primary").disabled = true
-document.querySelector("#reports .btn.btn-secondary").disabled = true
+document.querySelectorAll("#reports button").forEach(btn=>{
+btn.disabled = true
+btn.style.opacity = "0.5"
+})
 
 // ======================================
 // OPEX
@@ -3106,13 +3061,19 @@ disableInputs([
 "opexCancelBtn"
 ])
 
-// disable add account
-document.querySelector("#opex button.btn-primary").disabled = true
+// disable add account button
+document.querySelectorAll("#opex button").forEach(btn=>{
+btn.disabled = true
+btn.style.opacity = "0.5"
+})
 
 // disable editable amount fields
 document.querySelectorAll("#opexTable input").forEach(el=>{
 el.disabled = true
 })
+
+// disable edit buttons
+disableButtons("#opexTable .btn")
 
 // ======================================
 // FORECAST
@@ -3125,6 +3086,7 @@ el.disabled = true
 
 // disable discount %
 let pnlDiscount = document.getElementById("pnl_discount_rate")
+
 if(pnlDiscount){
 pnlDiscount.disabled = true
 }
@@ -3166,6 +3128,7 @@ document.querySelectorAll(selector).forEach(btn=>{
 
 btn.disabled = true
 btn.style.opacity = "0.5"
+
 btn.onclick = function(e){
 e.preventDefault()
 return false
